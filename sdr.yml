@@ -1,0 +1,247 @@
+# SDR packet OBS -> TMS
+sdr:
+  sqn:
+    # start 'header'
+    autoFill: True
+    eval: True
+    length: 4
+    val: 'self.incrementCounter()'
+  protocol_version:
+    autoFill: True
+    eval: False
+    length: 2
+    val: '01 00'
+  msg_type:
+    autoFill: True
+    eval: False
+    length: 2
+    val: '50 72'
+  comid:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '01 4E 01 00' # unverified, IEP data required
+  topo_count:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '00 00 00 00' # uncoupled trains only
+  dataset_length:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '00 00 00 40' # this would indicate it is 64 bytes, it is likely to be 68
+  reserved_1:
+    autoFill: True
+    eval: False
+    length: 8
+    val: '00 00 00 00 00 00 00 00'
+  reply_ip:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '00 00 00 00'
+  # start 'data'
+  source_device:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '4E'
+  sqn_fcs_error:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  data_length_upper:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  data_length_lower:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '3C'
+  reserved_2:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '00 00 00 00'
+  calendar_year:
+    autoFill: True
+    eval: True
+    length: 1
+    val: bytes.fromhex(datetime.now().strftime('%y'))
+  calendar_month:
+    autoFill: True
+    eval: True
+    length: 1
+    val: bytes.fromhex(datetime.now().strftime('%m'))
+  calendar_day:
+    autoFill: True
+    eval: True
+    length: 1
+    val: bytes.fromhex(datetime.now().strftime('%d'))
+  calendar_hour:
+    autoFill: True
+    eval: True
+    length: 1
+    val: bytes.fromhex(datetime.now().strftime('%H'))
+  calendar_minute:
+    autoFill: True
+    eval: True
+    length: 1
+    val: bytes.fromhex(datetime.now().strftime('%M'))
+  calendar_second:
+    autoFill: True
+    eval: True
+    length: 1
+    val: bytes.fromhex(datetime.now().strftime('%S'))
+  reserved_3:
+    autoFill: True
+    eval: False
+    length: 2
+    val: '00 00'
+  # GPS fixed at KNGX
+  gps_direction:
+    autoFill: True
+    eval: False
+    length: 1
+    val: 'C1'
+  gps_lat_deg:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '33'
+  gps_lat_min_upper:
+    autoFill: True
+    eval: False
+    length: 1
+    val: 'CA'
+  gps_lat_min_lower:
+    autoFill: True
+    eval: False
+    length: 1
+    val: 'FA'
+  gps_lon_deg:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  gps_lon_min_upper:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '1D'
+  gps_lon_min_lower:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '21'
+  reserved_4:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  trace_delete_target:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  trace_delete_command:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  trace_delete_type:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  trace_delete_target_vehicle:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  onboard_test:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '00 00 00 00'
+  # status 1 SI32:
+  # D3 disk alarm +/- 8
+  # D6 temperature alarm +/- 64
+  # D7 clock alarm +/- 128
+  status_1:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  # status 2 SI33:
+  # D2 NTP alarm +/- 4
+  # D3 GPS alarm +/- 8
+  # D7 router alarm +/- 128
+  status_2:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  # status 3 SI34:
+  # D2 3G card 4 alarm +/- 4
+  # D3 3G card 3 alarm +/- 8
+  # D4 3G card 2 alarm +/- 16
+  # D5 3G card 1 alarm +/- 32
+  # D6 WiFi card alarm +/- 64
+  # D7 Maintenance LAN alarm +/- 128
+  status_3:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  # status 4 SI35:
+  # D2 3G card 4 connecting +/- 4
+  # D3 3G card 3 connecting +/- 8
+  # D4 3G card 2 connecting +/- 16
+  # D5 3G card 1 connecting +/- 32
+  # D6 WiFi card connecting +/- 64
+  # D7 Maintenance Mode +/- 128
+  status_4:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  PIS_rt_message:
+    autoFill: True
+    eval: False
+    length: 2
+    val: '00 00'
+  pre_warm_up:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  data_upload_complete:
+    autoFill: True
+    eval: False
+    length: 1
+    val: '00'
+  shore_data_ready:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '00 00 00 00'
+  reserved_5:
+    autoFill: True
+    eval: False
+    length: 4
+    val: '00 00 00 00'
+  das_db_md5:
+    autoFill: True
+    eval: False
+    length: 16
+    val: '00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00'
+  check_sum:
+    autoFill: True
+    eval: True
+    length: 4
+    val: bytes.fromhex(hex(zlib.crc32(self.packet))[2:].zfill(8))
